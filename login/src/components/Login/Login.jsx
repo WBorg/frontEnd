@@ -28,7 +28,11 @@ export function Login(){
     .then((response)=>{
       console.log(response)
     }).catch((err)=>{
-      
+      if(err.response){
+        console.log(err.response)
+      }else{
+        console.log("Erro: tente mais tarde...")
+      }
     })
 
   }
