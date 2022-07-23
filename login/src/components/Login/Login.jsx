@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './styles.css';
 import api from '../../services/api';
+import {Eye, EyeSlash} from 'phosphor-react';
 
 export function Login(){
 
@@ -17,6 +18,12 @@ export function Login(){
     mensagem: '',
     loading: false
   })
+
+  const [pass, setPass] = useState('password')
+
+  const changeIcon = ()=>{
+    {pass == 'password' ? setPass('text') : setPass('password')}
+  }
 
 
   const valorInput = e => setUser({
@@ -61,6 +68,7 @@ export function Login(){
 
   })
 }
+
   
 
   return(
@@ -71,22 +79,29 @@ export function Login(){
           {status.type == 'success' ? <p>{status.mensagem}</p> : ""}
           {status.loading ? <p>Validando...</p> : ""}
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" name="email" placeholder="Enter email" onChange={valorInput} />
+            <Form.Label>E-mail:</Form.Label>
+            <Form.Control type="email" name="email" placeholder="Digite seu e-mail" onChange={valorInput} />
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              Nunca compartilharemos seu e-mail com outra pessoa.
             </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" name="password" placeholder="Password" onChange={valorInput} />
+            <Form.Label>Senha:</Form.Label>
+            <div className="password">
+              <Form.Control type={pass} name="password" placeholder="Digite sua senha" onChange={valorInput} />
+              <button type="button" className="view-password" onClick={changeIcon}>
+                {pass == "password" ? <EyeSlash size={28} /> : <Eye size={28}/> }
+              </button>
+               
+            </div>
+            
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+          </Form.Group> */}
           <Button variant="primary" type="submit">
-            Submit
+            Enviar
           </Button>
         </Form>
 
