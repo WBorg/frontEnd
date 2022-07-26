@@ -2,11 +2,15 @@ import React, {useState} from 'react';
 import Container from 'react-bootstrap/container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 import './styles.css';
 import api from '../../services/api';
 import {Eye, EyeSlash} from 'phosphor-react';
+import {useHistory} from 'react-router-dom';
 
 export function Login(){
+
+  const history = useHistory();
 
   const [user, setUser] = useState({
     email: '',
@@ -49,6 +53,8 @@ export function Login(){
         mensagem: response.data.mensagem,
         loading: false
       })
+      localStorage.setItem('token', JSON.stringify(response.data.token))
+      return history.push('/dashboard');
     }).catch((err)=>{
       setStatus({
         type: 'error',
@@ -75,8 +81,8 @@ export function Login(){
     <>
       <Container className="box">
           <Form onSubmit={loginSubmit} className="borderForm">
-          {status.type == 'error' ? <p>{status.mensagem}</p> : ""} 
-          {status.type == 'success' ? <p>{status.mensagem}</p> : ""}
+          {status.type == 'error' ? <Alert variant="danger"><p>{status.mensagem}</p></Alert> : ""} 
+          {status.type == 'success' ? <Alert variant="success"><p>{status.mensagem}</p> </Alert> : ""}
           {status.loading ? <p>Validando...</p> : ""}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>E-mail:</Form.Label>
@@ -100,9 +106,12 @@ export function Login(){
           {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group> */}
-          <Button variant="primary" type="submit">
-            Enviar
-          </Button>
+          {status.loading 
+          ? <Button variant="primary" type="submit" disabled>Acessando... </Button>
+          : <Button variant="primary" type="submit">Enviar </Button> 
+          }
+            
+         
         </Form>
 
       </Container>
