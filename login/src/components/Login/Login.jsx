@@ -24,17 +24,19 @@ export function Login(){
   })
 
   const [pass, setPass] = useState('password')
-
+  
+  /*funcao para alternar visualizacao da senha*/
   const changeIcon = ()=>{
     {pass == 'password' ? setPass('text') : setPass('password')}
   }
 
-
+  /* change dos imputs*/
   const valorInput = e => setUser({
     ...user,
     [e.target.name] : e.target.value
   })
 
+  /* submissao do form */
   const loginSubmit = async e => {
     e.preventDefault();
     // console.log(user.email);
@@ -47,7 +49,7 @@ export function Login(){
     })
     await api.post("/login", user, {headers})
     .then((response)=>{
-      // console.log(response)
+       console.log(response)
       setStatus({
         type: 'success',
         mensagem: response.data.mensagem,
@@ -55,22 +57,25 @@ export function Login(){
       })
       localStorage.setItem('token', JSON.stringify(response.data.token))
       return history.push('/dashboard');
+      
     }).catch((err)=>{
+      // console.log(err)
+      
       setStatus({
         type: 'error',
         mensagem: 'Erro: tente mais tarde',
         loading: false
       })
       if(err.response){
-        // console.log(err.response)
+        //  console.log(err)
         setStatus({
           type: 'error',
           mensagem: err.response.data.mensagem,
           loading: false
         })
+      }
       
         
-    }
 
   })
 }
@@ -81,7 +86,7 @@ export function Login(){
     <>
       <Container className="box">
           <Form onSubmit={loginSubmit} className="borderForm">
-          {status.type == 'error' ? <Alert variant="danger"><p>{status.mensagem}</p></Alert> : ""} 
+          {status.type == 'error' ? <Alert size="big" variant="danger"><p>{status.mensagem}</p></Alert> : ""} 
           {status.type == 'success' ? <Alert variant="success"><p>{status.mensagem}</p> </Alert> : ""}
           {status.loading ? <p>Validando...</p> : ""}
           <Form.Group className="mb-3" controlId="formBasicEmail">
