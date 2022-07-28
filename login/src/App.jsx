@@ -3,6 +3,8 @@ import { Dashboard } from './page/Dashboard';
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+import { PrivateRoute } from './routes/privateroutes'
+
 
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
         <Switch>
           
           <Route exact path="/" component={Login}/>
-          <Route  path="/dashboard" component={Dashboard} />
+          <PrivateRoute  path="/dashboard" component={Dashboard} />
 
         </Switch>
       </Router>
