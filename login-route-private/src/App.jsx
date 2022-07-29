@@ -1,10 +1,8 @@
-import {Login} from './components/Login/Login';
-import { Dashboard } from './page/Dashboard';
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
+import history from './services/history'
 import { AuthProvider} from './Context/AuthContext'
-
+import Routes from './routes/privatesroutes'
 
 
 function App() {
@@ -13,9 +11,8 @@ function App() {
     <div >
 
         <AuthProvider>
-          <Router>
-            <Route exact path="/" component={Login}/>
-            <Route  path="/dashboard" component={Dashboard} />
+          <Router history={history}>
+            <Routes />
           </Router>
         </AuthProvider>
           
