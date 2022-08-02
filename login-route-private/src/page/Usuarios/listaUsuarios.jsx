@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
 import api from '../../services/api';
+import Table from 'react-bootstrap/Table'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 
 
 export const ListaUsuarios = () =>{
+
 
   const [data, setData] = useState([]);
   const [status, setStatus] = useState({
@@ -43,7 +46,7 @@ export const ListaUsuarios = () =>{
   return(
     <>
       
-        <ul>
+        {/* <ul>
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
@@ -55,18 +58,50 @@ export const ListaUsuarios = () =>{
           </li>
           
             
-        </ul>
+        </ul> */}
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#">Navbar</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              <Nav.Link href="/usuarios">Usuários</Nav.Link>
+              <Nav.Link href="/usuarios/novo">Novo Usuário</Nav.Link>
+            </Nav>
+        </Navbar>
 
       <h1>Lista Usuários</h1>
+      <Table striped bordered variant="dark" size="sm" >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
 
-      {data.map(user => (
-        <div key={user.id}>
-            <div>{user.name}</div>
-            <div>{user.email}</div>
-        </div>
+                  {data.map(user => (
+                    
+                    // <div key={user.id}>
+                    //     <div>{user.name}</div>
+                    //     <div>{user.email}</div>
+                    // </div>
+                          <tr key={user.id}>
+                            <td>{user.id}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                          </tr>
+                  )
+                )}
+            </tbody>
+      </Table>
+              
+        
+        
+            
+             
+            
+        
 
-
-      ))}
 
 
 
