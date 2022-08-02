@@ -20,6 +20,9 @@ export const Dashboard = () =>{
           <li>
             <Link to="/usuarios">Usuários</Link>
           </li>
+          <li>
+            <Link to="/usuarios/novo">Novo Usuário</Link>
+          </li>
           
             
         </ul>
