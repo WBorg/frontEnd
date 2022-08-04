@@ -1,6 +1,9 @@
 import React, {useContext} from "react";
 import { Context } from '../../Context/AuthContext'
 import { Link } from 'react-router-dom'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 
 export const Dashboard = () =>{
 
@@ -13,7 +16,7 @@ export const Dashboard = () =>{
   return(
     <div>
         
-        <ul>
+        {/* <ul>
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
@@ -25,7 +28,16 @@ export const Dashboard = () =>{
           </li>
           
             
-        </ul>
+        </ul> */}
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#">Navbar</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="#"><Link className="linkNavBar" to="/dashboard">Dashboard</Link></Nav.Link>
+              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios">Usuários</Link></Nav.Link>
+              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios/novo">Novo Usuário</Link></Nav.Link>
+            </Nav>
+        </Navbar>
+
 
       <h1>Dashboard</h1>
       {/* <h3>Token: {token}</h3> */}

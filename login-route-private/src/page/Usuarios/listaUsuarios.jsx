@@ -3,6 +3,9 @@ import api from '../../services/api';
 import Table from 'react-bootstrap/Table'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom'
+import NavBar from '../../components/NavBar/NavBar'
 
 
 
@@ -59,14 +62,15 @@ export const ListaUsuarios = () =>{
           
             
         </ul> */}
-        <Navbar bg="dark" variant="dark">
+        {/* <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="#">Navbar</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link href="/usuarios">Usuários</Nav.Link>
-              <Nav.Link href="/usuarios/novo">Novo Usuário</Nav.Link>
+              <Nav.Link href="#"><Link className="linkNavBar" to="/dashboard">Dashboard</Link></Nav.Link>
+              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios">Usuários</Link></Nav.Link>
+              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios/novo">Novo Usuário</Link></Nav.Link>
             </Nav>
-        </Navbar>
+        </Navbar> */}
+        <NavBar/>
 
       <h1>Lista Usuários</h1>
       <Table striped bordered variant="dark" size="sm" >
@@ -89,6 +93,14 @@ export const ListaUsuarios = () =>{
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>
+                              <Button variant="outline-warning" >
+                                  <Link to={"/usuarios/editar/"+user.id}>Editar</Link>
+                              </Button>
+                              <Button variant="outline-danger" onClick={() => handleDelete(user.id)}>
+                                  Excluir
+                              </Button>
+                            </td>
                           </tr>
                   )
                 )}
