@@ -4,14 +4,17 @@ import Table from 'react-bootstrap/Table'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import NavBar from '../../components/NavBar/NavBar'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import css from './listaUsuarios.module.css'
 
 
 
 export const ListaUsuarios = () =>{
 
-
+  const history = useHistory()
   const [data, setData] = useState([]);
   const [status, setStatus] = useState({
     type:'',
@@ -46,34 +49,74 @@ export const ListaUsuarios = () =>{
     getUsers()
   },[])
 
+  async function handleDelete (id){
+    const headers = {
+      'headers': {
+        'Authorization' : 'Bearer ' +  localStorage.getItem('token')
+      }
+    }
+     await api.delete("/user/"+id, headers)
+     .then((response)=>{
+      setStatus({
+        type: 'success',
+        mensagem: response.data.mensagem
+      })
+      console.log(status.mensagem)
+      // return history.push("/usuarios")
+
+    }).catch((err)=>{
+      if(err.response){
+        setStatus({
+        type: 'erro',
+        mensagem: err.response.data.mensagem
+      })
+      }else{
+        setStatus({
+          type: 'erro',
+          mensagem: "Erro: Tente mais tarde"
+        })
+      }
+      
+      
+    })
+    getUsers()
+
+      
+  } 
+
+  function confirmDelete(user){
+    confirmAlert({
+      title: 'Atenção!',
+      message: `Tem certeza que deseja excluir ${user.name}?`,
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: ()=> handleDelete(user.id)
+        },
+        {
+          label: 'No'
+          
+        }
+      ],
+      closeOnClickOutside: false
+    });
+    
+  };
+  
+    
+
   return(
     <>
       
-        {/* <ul>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/usuarios">Usuários</Link>
-          </li>
-          <li>
-            <Link to="/usuarios/novo">Novo Usuário</Link>
-          </li>
-          
-            
-        </ul> */}
-        {/* <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#">Navbar</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="#"><Link className="linkNavBar" to="/dashboard">Dashboard</Link></Nav.Link>
-              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios">Usuários</Link></Nav.Link>
-              <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios/novo">Novo Usuário</Link></Nav.Link>
-            </Nav>
-        </Navbar> */}
-        <NavBar/>
+      <NavBar/>
+      <div className={css.header}>
+        <h1>Lista Usuários</h1>
+        <Button variant="outline-success">
+          <Link className={css.linkNavBar} to="/usuarios/novo">Novo Usuário</Link>
+        </Button>
+      </div>
 
-      <h1>Lista Usuários</h1>
-      <Table striped bordered variant="dark" size="sm" >
+      <Table striped bordered  size="sm" >
             <thead>
               <tr>
                 <th>#</th>
@@ -93,11 +136,11 @@ export const ListaUsuarios = () =>{
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
-                            <td>
+                            <td className={css.buttons}>
                               <Button variant="outline-warning" >
-                                  <Link to={"/usuarios/editar/"+user.id}>Editar</Link>
+                                  <Link className={css.linkNavBar} to={"/usuarios/editar/"+user.id}>Editar</Link>
                               </Button>
-                              <Button variant="outline-danger" onClick={() => handleDelete(user.id)}>
+                              <Button variant="outline-danger" onClick={() => confirmDelete(user)}>
                                   Excluir
                               </Button>
                             </td>
@@ -106,6 +149,11 @@ export const ListaUsuarios = () =>{
                 )}
             </tbody>
       </Table>
+
+    </>
+
+  )
+}
               
         
         
@@ -116,9 +164,4 @@ export const ListaUsuarios = () =>{
 
 
 
-
-    </>
-
-  )
-}
  
