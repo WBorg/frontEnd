@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import {Eye, EyeSlash} from 'phosphor-react';
-import '../.././components/Login/styles.css';
+import '../../components/Login/styles.css';
 
 
 
@@ -61,7 +61,7 @@ export const UsuariosForm = (props) =>{
           'Content-Type' : 'application/json'
         }
       }
-      await api.get("/user/"+id, headers)
+      await api.get("/users/show/"+id, headers)
       .then((response)=>{
           if(response.data.users){
             setValues(response.data.users)
@@ -104,7 +104,7 @@ export const UsuariosForm = (props) =>{
     }
 
     if(!id){
-      await api.post("/user", values, headers)
+      await api.post("/users/create", values, headers)
       .then((response) =>{
           console.log(response)
           setStatus({
@@ -130,7 +130,7 @@ export const UsuariosForm = (props) =>{
   
       })
     }else{
-      await api.put("/user", values, headers)
+      await api.put("/users/update", values, headers)
     .then((response) =>{
         console.log(response)
         setStatus({
@@ -169,7 +169,7 @@ export const UsuariosForm = (props) =>{
     <div>
 
     <Container>
-      <h1>{acao} Usuários</h1>
+      <h1>{acao} Usuário</h1>
       <Form onSubmit={formSubmit} className="borderForm">
           {status.type == 'error' ? <Alert size="big" variant="danger"><p>{status.mensagem}</p></Alert> : ""} 
           {status.type == 'success' ? <Alert variant="success"><p>{status.mensagem}</p> </Alert> : ""}

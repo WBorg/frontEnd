@@ -66,7 +66,7 @@ export function Login(){
       return history.push('/dashboard');
       
     }).catch((err)=>{
-      // console.log(err)
+       console.log(err)
       
       setStatus({
         type: 'error',

@@ -35,8 +35,8 @@ function AuthProvider({children}){
       return true
     }).catch(()=>{
       setAuthenticated(false)
-    localStorage.removeItem('token')
-    api.defaults.headers.Authorization =  undefined
+      localStorage.removeItem('token')
+      api.defaults.headers.Authorization =  undefined
       return false
     })
   }

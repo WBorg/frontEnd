@@ -55,7 +55,7 @@ export const ListaUsuarios = () =>{
         'Authorization' : 'Bearer ' +  localStorage.getItem('token')
       }
     }
-     await api.delete("/user/"+id, headers)
+     await api.delete("/users/delete/"+id, headers)
      .then((response)=>{
       setStatus({
         type: 'success',
