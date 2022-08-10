@@ -190,7 +190,7 @@ export const UsuariosForm = (props) =>{
           {!id &&
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Senha:</Form.Label>
-              <div className="password">
+              <div className="password" >
                 <Form.Control type={pass} name="password"  placeholder="Digite sua senha" onChange={valorInput} />
                 <button type="button" className="view-password" onClick={changeIcon}>
                   {pass == "password" ? <EyeSlash size={28} /> : <Eye size={28}/> }
