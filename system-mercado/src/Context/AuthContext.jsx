@@ -32,8 +32,10 @@ function AuthProvider({children}){
     }
     await api.get("/validaToken", headers)
     .then(()=>{
+      
       return true
     }).catch(()=>{
+      
       setAuthenticated(false)
       localStorage.removeItem('token')
       api.defaults.headers.Authorization =  undefined
