@@ -20,11 +20,17 @@ export function ListaCategorias(){
 
   const history = useHistory()
   const [data, setData] = useState([]);
-  const [busca, setBusca] = useState([]);
+  const [search, setSearch] = useState('');
   const [status, setStatus] = useState({
     type:'',
     mensagem: ''
   });
+
+  
+    const filteredData = search.length > 0
+    ? data.filter((categorie)=> categorie.name.toLowerCase().includes(search.toLocaleLowerCase()))
+    : []
+  
 
   const getCategories = async () =>{
     const headers = {
@@ -115,40 +121,65 @@ export function ListaCategorias(){
 
   return(
     <>
-      <NavBar/>
+      <NavBar />
       <div className={css.header}>
         <h1>Lista de Categorias</h1>
-        <input type="text" onChange={ e => setBusca(e.target.value) } />
-        <Button variant="outline-success">
+        <input className={css.search} type="text" placeholder="Buscar..." onChange={ e => setSearch(e.target.value) } />
+        <Button variant="success">
             <Link className={css.linkNavBar} to="/categorias/novo">Nova Categoria</Link>
         </Button>
       </div>
       <div className={css.table}>
-        <Table striped bordered  size="sm">
+        <Table   size="sm">
             <thead>
                     <tr>
-                      <th>#</th>
+                      <th>ID</th>
                       <th>Nome</th>
                       <th>Descrição</th>
+                      <th>Opções</th>
                     </tr>
             </thead>
             <tbody>
-            {data.map(categorie => (
+            {search.length > 0 ? (
+
+                filteredData.map(categorie => (
+                  <tr key={categorie.id}>
+                    <td>{categorie.id}</td>
+                    <td>{categorie.name}</td>
+                    <td>{categorie.description}</td>
+                    <td className={css.buttons}>
+                      <Button variant="warning" >
+                          <Link className={css.linkNavBar} to={"/categorias/editar/"+categorie.id}>Editar</Link>
+                      </Button>
+                      <Button variant="danger" onClick={() => confirmDelete(categorie)}>
+                          Excluir
+                      </Button>
+                    </td>
+                  </tr>
+                      )
+                    )
+
+
+            ):(
+
+              data.map(categorie => (
                 <tr key={categorie.id}>
                   <td>{categorie.id}</td>
                   <td>{categorie.name}</td>
                   <td>{categorie.description}</td>
                   <td className={css.buttons}>
-                    <Button variant="outline-warning" >
+                    <Button variant="warning" >
                         <Link className={css.linkNavBar} to={"/categorias/editar/"+categorie.id}>Editar</Link>
                     </Button>
-                    <Button variant="outline-danger" onClick={() => confirmDelete(categorie)}>
+                    <Button variant="danger" onClick={() => confirmDelete(categorie)}>
                         Excluir
                     </Button>
                   </td>
                 </tr>
                     )
-                  )}
+                  )
+
+            )}
             </tbody>
         </Table>
       </div>
