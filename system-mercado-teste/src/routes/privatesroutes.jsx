@@ -34,11 +34,11 @@ export default function PrivateRoute(){
       <CustomRoute isPrivate path="/usuarios/novo" component={UsuariosForm}/>
       <CustomRoute isPrivate path="/usuarios/editar/:id" component={UsuariosForm}/>
       <CustomRoute isPrivate path="/usuarios" component={ListaUsuarios}/>
-      <CustomRoute isPrivate  path="/categorias/editar/:id" component={CategoriasForm}/>
       <CustomRoute isPrivate path="/categorias/novo" component={CategoriasForm}/>
-
+      <CustomRoute isPrivate  path="/categorias/editar/:id" component={CategoriasForm}/>
       <CustomRoute isPrivate  path="/categorias" component={ListaCategorias}/>
     </Switch>
+
     
   )
 }
