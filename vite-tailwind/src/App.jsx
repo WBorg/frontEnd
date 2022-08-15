@@ -1,20 +1,49 @@
+import api from '../src/services/axios'
+import { useState, useEffect } from 'react'
+
 
 function App() {
 
-  return (
-    <div className="w-screen h-screen flex justify-center items-center ">
-      <form className="flex flex-col gap-8 bg-slate-500 w-[50%] rounded-md 
-          justify-center items-start h-[50%] shadow-2xl shadow-black pl-3" >
-        <div className="flex gap-4 text-xl font-medium justify-center items-center " >
-          <label>Nome da categoria</label>
-          <input type="Text" />
-        </div>
-        <div className="flex gap-4 text-xl font-medium justify-center items-center">
-          <label>Descrição da categoria</label>
-          <input type="text" />
-        </div>
-      </form>
+  const [alunos, setAlunos] = useState([])
+  useEffect( ()=>{
 
+   
+      api.get('/alunos')
+      .then((response)=>{
+        setAlunos(response.data)
+      })
+      .catch((erro)=>{
+        console.log(erro)
+      })
+      
+    },[])
+        
+        
+    
+      
+
+    
+
+    
+
+     
+
+  
+
+
+  return (
+    <div>
+      <h1 className="border-2 border-b-blue-700 pb-4">Lista de alunos</h1>
+      <ul>
+        {alunos.map((aluno)=>(
+            <li key={aluno.nome}>
+              Nome: {aluno.nome} -- idade: {aluno.idade}
+            </li>
+          ))
+        }
+      </ul>
+      
+      
     </div>
   )
 }
