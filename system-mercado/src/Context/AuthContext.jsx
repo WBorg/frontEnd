@@ -9,6 +9,7 @@ function AuthProvider({children}){
 
   useEffect(() =>{
 
+
     const getLogin =  () =>{
       const token = localStorage.getItem('token')
       if(token  && validatedToken()){

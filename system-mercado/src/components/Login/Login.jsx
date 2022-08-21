@@ -9,8 +9,11 @@ import {Eye, EyeSlash} from 'phosphor-react';
 import {useHistory} from 'react-router-dom';
 
 import { Context } from '../../Context/AuthContext'
+import { useEffect } from 'react';
 
 export function Login(){
+
+  
 
   const history = useHistory();
 
@@ -41,6 +44,7 @@ export function Login(){
     ...user,
     [e.target.name] : e.target.value
   })
+
 
   /* submissao do form */
   const loginSubmit = async e => {
