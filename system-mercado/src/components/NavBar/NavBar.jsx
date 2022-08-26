@@ -18,6 +18,15 @@ function NavBar() {
           <Nav.Link href="#"><Link className="linkNavBar" to="/usuarios">Usuários</Link></Nav.Link>
           <Nav.Link href="#"><Link className="linkNavBar" to="/categorias">Categorias</Link></Nav.Link>
         </Nav>
+
+        <Nav className="justify-content-end">
+          
+        <Nav.Link href="#"><Link className="linkNavBar" to="/profile">Perfil</Link></Nav.Link>
+
+
+        </Nav>
+
+
     </Navbar>
    );
 }

@@ -8,6 +8,7 @@ import { UsuariosForm } from '../page/UsuariosForm/UsuariosForm'
 import { ListaCategorias } from '../page/Categorias/listaCategorias'
 import  CategoriasForm  from '../page/CategoriasForm/CategoriasForm'
 import { Context } from '../Context/AuthContext'
+import { UsuariosFormView } from '../page/UsuariosForm/UsuariosFormView'
 
 
 
@@ -36,8 +37,9 @@ export default function PrivateRoute(){
       <CustomRoute isPrivate path="/usuarios" component={ListaUsuarios}/>
       <CustomRoute isPrivate  path="/categorias/editar/:id" component={CategoriasForm}/>
       <CustomRoute isPrivate path="/categorias/novo" component={CategoriasForm}/>
-
       <CustomRoute isPrivate  path="/categorias" component={ListaCategorias}/>
+      <CustomRoute isPrivate  path="/profile" component={UsuariosFormView}/>
+
     </Switch>
     
   )
